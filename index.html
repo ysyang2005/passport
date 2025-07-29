@@ -2,7 +2,6 @@
 <html lang="zh-Hant">
 <head>
 <meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>多頁護照翻頁效果（每頁左側顯示前一頁背面）</title>
 <style>
 body {
@@ -13,27 +12,16 @@ body {
     align-items: center;
     background: #fff;
     perspective: 1400px;
-    overflow-x: visible; /* 避免水平裁切 */
-}
-@media (max-width: 600px) {
-    .passport-container {
-        width: 100vw;   /* 手機全寬 */
-        max-width: 840px;
-        height: calc(100vw * (600 / 420)); /* 高度依比例調整 */
-    }
 }
 .passport-container {
-    width: 840px;       /* 兩頁寬度 */
+    width: 420px;
     height: 600px;
     position: relative;
     cursor: pointer;
-    overflow: visible;  /* 避免裁剪翻開的左頁 */
-    transform-style: preserve-3d;
 }
-
 .passport-front, .passport-back, .passport-third, .passport-fourth, .passport-fifth {
-    width: 100%;
-    height: 100%;
+    width: 420px;
+    height: 600px;
     border-radius: 20px;
     position: absolute;
     top: 0; left: 0;
@@ -44,7 +32,6 @@ body {
     transform-style: preserve-3d;
     display: none;
 }
-
 .passport-front {
     display: block;
     background: #4B001F;
