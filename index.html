@@ -403,11 +403,9 @@ function toPage(page) {
     }
 }
 
-
-passport.addEventListener('mouseenter', () => toPage(2));
-passport.addEventListener('mouseleave', () => toPage(1));
 passport.addEventListener('click', () => {
-    if (currentPage === 2) toPage(3);
+    if (currentPage === 1) toPage(2);
+    else if (currentPage === 2) toPage(3);
     else if (currentPage === 3) toPage(4);
     else if (currentPage === 4) toPage(5);
     else if (currentPage === 5) toPage(1);
