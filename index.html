@@ -13,14 +13,22 @@ body {
     align-items: center;
     background: #fff;
     perspective: 1400px;
+    overflow-x: visible; /* 避免水平裁切 */
+}
+@media (max-width: 600px) {
+    .passport-container {
+        width: 100vw;   /* 手機全寬 */
+        max-width: 840px;
+        height: calc(100vw * (600 / 420)); /* 高度依比例調整 */
+    }
 }
 .passport-container {
-    width: 90vw;       /* 改成視窗寬度的 90% */
-    max-width: 420px;  /* 最大寬度還是 420px */
-    height: calc(90vw * (600 / 420)); /* 依照寬高比動態調整高度 */
-    max-height: 600px;
+    width: 840px;       /* 兩頁寬度 */
+    height: 600px;
     position: relative;
     cursor: pointer;
+    overflow: visible;  /* 避免裁剪翻開的左頁 */
+    transform-style: preserve-3d;
 }
 
 .passport-front, .passport-back, .passport-third, .passport-fourth, .passport-fifth {
