@@ -31,14 +31,22 @@ body {
     transform-style: preserve-3d;
 }
 
-/* 左頁 - 封面 */
-.passport-front {
-    width: 420px;
-    height: 600px;
+.passport-front, .passport-back, .passport-third, .passport-fourth, .passport-fifth {
+    width: 100%;
+    height: 100%;
     border-radius: 20px;
     position: absolute;
-    top: 0;
-    left: 0;
+    top: 0; left: 0;
+    transform-origin: left center;
+    transition: transform 1.5s ease;
+    box-shadow: 0 0 20px rgba(0,0,0,0.15);
+    user-select: none;
+    transform-style: preserve-3d;
+    display: none;
+}
+
+.passport-front {
+    display: block;
     background: #4B001F;
     color: #D4AF37;
     display: flex;
@@ -47,15 +55,12 @@ body {
     align-items: center;
     text-align: center;
     font-family: "Noto Serif TC", "Georgia", serif;
+    transform: rotateY(0deg);
     box-shadow: 0 0 30px rgba(0,0,0,0.3);
     backface-visibility: visible;
-    transform-origin: left center;
-    transition: transform 1.5s ease;
-    user-select: none;
-    transform-style: preserve-3d;
     z-index: 5;
+    position: relative;
 }
-
 .passport-front .emblem { font-size: 6em; margin-bottom: 30px; }
 .passport-front .title-cn { font-size: 2.5em; font-weight: bold; margin-bottom: 10px; }
 .passport-front .title-en { font-size: 1.8em; font-weight: bold; margin-bottom: 20px; }
@@ -73,8 +78,7 @@ body {
     color: rgba(255, 255, 255, 0.7);
     font-weight: bold;
 }
-
-/* 右頁 - 第二頁 */
+/* 第二頁背景 */
 .passport-back {
     width: 420px;
     height: 600px;
@@ -83,7 +87,7 @@ body {
     box-shadow: 0 0 20px rgba(0,0,0,0.15);
     position: absolute;
     top: 0;
-    left: 420px; /* 放在右邊 */
+    left: 0;
     overflow: visible;
     box-sizing: border-box;
     transform-origin: left center;
@@ -91,7 +95,6 @@ body {
     transform: rotateY(180deg);
     backface-visibility: visible;
     user-select: none;
-    z-index: 1;
 }
 .passport-back .watermark {
     position: absolute;
@@ -150,26 +153,17 @@ body {
         transform: translateY(0);
     }
 }
-
-/* 第三頁 */
 .passport-third {
-    width: 840px;
-    height: 600px;
-    background: #fff5f8;
+    width: 100%; height: 100%;
     display: flex;
-    flex-direction: column;
     justify-content: center;
     align-items: center;
     font-size: 1.6em;
     font-weight: bold;
     text-align: center;
-    position: absolute;
-    top: 0; left: 0;
-    border-radius: 20px;
-    box-shadow: 0 0 20px rgba(0,0,0,0.15);
-    user-select: none;
 }
 
+/* 圖片框置中 */
 .photo-frame {
     width: 150px;
     height: 200px;
@@ -178,12 +172,12 @@ body {
     border-radius: 10px;
     overflow: hidden;
     box-shadow: 0 0 8px rgba(0,0,0,0.2);
-}
+    }
 .photo-frame img {
     width: 100%;
     height: 100%;
     object-fit: cover;
-}
+    }
 .quote {
     font-family: 'Georgia', serif;
     font-style: italic;
@@ -191,17 +185,18 @@ body {
     color: #333;
     margin-top: 10px;
     padding: 0 20px;
-}
+    }
+
 .quote::before, .quote::after {
     content: '"';
     font-size: 20px;
     color: #4682b4;
-}
+    }
 
-/* 第四頁 */
+
 .passport-fourth {
-    width: 840px;
-    height: 600px;
+    width: 100%;
+    height: 100%;
     padding: 40px 20px;
     box-sizing: border-box;
     background: #fff5f8;
@@ -210,14 +205,6 @@ body {
     align-items: center;
     overflow: hidden;
     font-family: "Noto Sans TC", sans-serif;
-    font-size: 2em;
-    color: #00796B;
-    font-weight: bold;
-    position: absolute;
-    top: 0; left: 0;
-    border-radius: 20px;
-    box-shadow: 0 0 20px rgba(0,0,0,0.15);
-    user-select: none;
 }
 
 .agenda-title {
@@ -238,7 +225,7 @@ body {
 .agenda-table {
     width: 100%;
     border-collapse: collapse;
-    font-size: 0.75em;
+    font-size: 0.75em;  /* 控制整體文字大小 */
     table-layout: fixed;
     background-color: #fff;
     box-shadow: 0 0 10px rgba(0,0,0,0.05);
@@ -258,24 +245,15 @@ body {
     font-weight: bold;
 }
 
-/* 第五頁 */
 .passport-fifth {
-    width: 840px;
-    height: 600px;
+    width: 100%; height: 100%;
     display: flex;
-    flex-direction: column;
     justify-content: center;
     align-items: center;
     font-size: 1.6em;
     font-weight: bold;
     text-align: center;
-    background: #fff5f8;
-    color: #00796B;
-    position: absolute;
-    top: 0; left: 0;
-    border-radius: 20px;
-    box-shadow: 0 0 20px rgba(0,0,0,0.15);
-    user-select: none;
+
 }
 
 .section-title {
@@ -288,9 +266,9 @@ body {
     font-family: "Noto Serif TC", "Georgia", serif;
 }
 
-.photo-frame.large {
-    width: 320px;
-    height: 200px;
+.photo-frame {
+    width: 320px;        /* 更寬 */
+    height: 200px;       /* 比例適中 */
     margin: 20px auto;
     border: 6px solid #4682b4;
     border-radius: 12px;
@@ -298,135 +276,153 @@ body {
     box-shadow: 0 0 10px rgba(0,0,0,0.25);
 }
 
-.photo-frame.large img {
+.photo-frame img {
     width: 100%;
     height: 100%;
     object-fit: cover;
 }
 
-/* 分頁狀態顯示控制 */
+.passport-back { background: #fff5f8; }
+.passport-third { background: #fff5f8; }
+.passport-fourth { background: #fff5f8; font-size: 2em; color: #00796B; font-weight: bold; }
+.passport-fifth { background: #fff5f8; font-size: 2em; color: #00796B; font-weight: bold; }
+
 .passport-container.page-1 .passport-front {
     display: flex;
     transform: rotateY(0deg);
-    z-index: 5;
 }
-.passport-container.page-1 .passport-back {
-    display: none;
-}
-
-.passport-container.page-2 .passport-front {
-    display: flex;
-    transform: rotateY(-180deg);
-    z-index: 1;
-}
+.passport-container.page-2 .passport-front,
 .passport-container.page-2 .passport-back {
     display: block;
-    transform: rotateY(0deg);
-    z-index: 5;
 }
-
-.passport-container.page-3 .passport-front,
-.passport-container.page-3 .passport-back {
-    display: none;
-}
+.passport-container.page-3 .passport-back,
 .passport-container.page-3 .passport-third {
-    display: flex;
+    display: block;
 }
-
-.passport-container.page-4 .passport-third {
-    display: none;
-}
+.passport-container.page-4 .passport-third,
 .passport-container.page-4 .passport-fourth {
-    display: flex;
+    display: block;
 }
-
-.passport-container.page-5 .passport-fourth {
-    display: none;
-}
+.passport-container.page-5 .passport-fourth,
 .passport-container.page-5 .passport-fifth {
-    display: flex;
+    display: block;
 }
 
-/* 動畫 keyframes */
-@keyframes riseUpFadeIn {
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
-}
+.passport-container.page-2 .passport-front { transform: rotateY(-180deg); z-index: 1; }
+.passport-container.page-2 .passport-back { transform: rotateY(0deg); z-index: 5; }
+.passport-container.page-3 .passport-back { transform: rotateY(-180deg); z-index: 1; }
+.passport-container.page-3 .passport-third { transform: rotateY(0deg); z-index: 5; }
+.passport-container.page-4 .passport-third { transform: rotateY(-180deg); z-index: 1; }
+.passport-container.page-4 .passport-fourth { transform: rotateY(0deg); z-index: 5; }
+.passport-container.page-5 .passport-fourth { transform: rotateY(-180deg); z-index: 1; display: block; }
+.passport-container.page-5 .passport-fifth { transform: rotateY(0deg); z-index: 5; display: block; }
 
 </style>
 </head>
 <body>
-<div class="passport-container page-1" id="passportContainer" role="region" aria-label="模擬聯合國護照">
-    <div class="passport-front" role="document">
-        <div class="emblem" aria-hidden="true">UN</div>
+<div class="passport-container page-1" id="passportContainer">
+    <div class="passport-front">
+        <div class="emblem">UN</div>
         <div class="title-cn">模擬聯合國</div>
         <div class="title-en">UNITED NATIONS</div>
         <div class="subtitle-cn">護照</div>
         <div class="subtitle-en">PASSPORT</div>
-        <div class="back-content" aria-hidden="true">封面背面</div>
+        <div class="back-content">封面背面</div>
     </div>
+      <!-- 第二頁 -->
     <div class="passport-back" aria-hidden="true">
         <img class="watermark" src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/00/United_Nations_Emblem_olive_branch.svg/1024px-United_Nations_Emblem_olive_branch.svg.png" alt="聯合國水印" />
         <div class="content">
-            <div class="welcome-text" id="welcomeText" aria-live="polite">
+            <div class="welcome-text" id="welcomeText">
                 <span>歡迎成為</span><br>
                 <span>第X屆模擬聯合國</span><br>
                 <span>參會代表</span>
             </div>
         </div>
     </div>
-    <div class="passport-third" aria-hidden="true">
+    <!-- 第三頁 -->
+    <div class="passport-third">
         <h2>代表信息</h2>
         <div class="photo-frame">
             <img src="1.jpg" alt="Participant Photo">
         </div>
         <p class="quote">模擬聯合國參會代表</p>
     </div>
-    <div class="passport-fourth" aria-hidden="true">
+
+    <!-- 第四頁 -->
+    <div class="passport-fourth">
          <div class="agenda-title">大會議程</div>
-          <table class="agenda-table" role="table">
+          <table class="agenda-table">
             <thead>
                 <tr>
-                    <th scope="col">時間</th>
-                    <th scope="col">活動</th>
+                    <th>時間</th>
+                    <th>活動</th>
                 </tr>
             </thead>
             <tbody>
-                <tr><td>09:00</td><td>開幕典禮</td></tr>
-                <tr><td>10:00</td><td>分組討論</td></tr>
-                <tr><td>12:00</td><td>午餐</td></tr>
-                <tr><td>14:00</td><td>模擬大會</td></tr>
+                <tr>
+                    <td>09:00 - 09:30</td>
+                    <td>報到 / 入場</td>
+                </tr>
+                <tr>
+                    <td>09:30 - 10:00</td>
+                    <td>開幕式</td>
+                </tr>
+                <tr>
+                    <td>10:00 - 12:00</td>
+                    <td>議題討論（一）</td>
+                </tr>
+                <tr>
+                    <td>12:00 - 13:30</td>
+                    <td>午餐 / 休息</td>
+                </tr>
+                <tr>
+                    <td>13:30 - 15:30</td>
+                    <td>議題討論（二）</td>
+                </tr>
+                <tr>
+                    <td>15:30 - 16:00</td>
+                    <td>閉幕式 / 合照</td>
+                </tr>
             </tbody>
-          </table>
+        </table>
     </div>
-    <div class="passport-fifth" aria-hidden="true">
-        <div class="section-title">締約方代表照片</div>
-        <div class="photo-frame large">
-            <img src="2.jpg" alt="代表照片">
-        </div>
+
+    <div class="passport-fifth">
+        <div class="section-title">開幕式</div>
+        <div class="photo-frame">
+            <img src="1.jpg" alt="開幕式照片">
+    <!-- 你可以在這裡加入更多內容，例如圖片、說明、列表等 -->
     </div>
+
 </div>
-
 <script>
-const passportContainer = document.getElementById('passportContainer');
+const passport = document.getElementById('passportContainer');
 const welcomeText = document.getElementById('welcomeText');
-
-// 翻頁狀態
 let currentPage = 1;
 
-passportContainer.addEventListener('click', () => {
-    currentPage++;
-    if (currentPage > 5) currentPage = 1;
-    passportContainer.className = `passport-container page-${currentPage}`;
-    
-    if (currentPage === 2) {
-        // 觸發歡迎文字動畫
-        welcomeText.classList.remove('animate');
-        void welcomeText.offsetWidth;  // 重新觸發動畫
-        welcomeText.classList.add('animate');
+function triggerAnimation() {
+    welcomeText.classList.remove('animate');
+    void welcomeText.offsetWidth;
+    welcomeText.classList.add('animate');
+}
+
+function toPage(page) {
+    passport.className = 'passport-container page-' + page;
+    currentPage = page;
+    if (page === 2) {
+        triggerAnimation();
     }
+}
+
+
+passport.addEventListener('mouseenter', () => toPage(2));
+passport.addEventListener('mouseleave', () => toPage(1));
+passport.addEventListener('click', () => {
+    if (currentPage === 2) toPage(3);
+    else if (currentPage === 3) toPage(4);
+    else if (currentPage === 4) toPage(5);
+    else if (currentPage === 5) toPage(1);
 });
 </script>
 </body>
