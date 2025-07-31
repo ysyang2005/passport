@@ -1,9 +1,15 @@
 <!DOCTYPE html>
+
 <html lang="zh-Hant">
+
 <head>
+
 <meta charset="UTF-8" />
-<title>多頁護照翻頁效果（每頁左側顯示前一頁背面）</title>
+
+<title>多頁護照翻頁效果</title>
+
 <style>
+
 body {
     margin: 0;
     height: 100vh;
@@ -13,26 +19,34 @@ body {
     background: #fff;
     perspective: 1400px;
 }
+
 .passport-container {
     width: 420px;
     height: 600px;
     position: relative;
     cursor: pointer;
-    margin-left: 350px;
+    margin-left: 0;
 }
-.passport-front, .passport-back, .passport-third, .passport-fourth, .passport-fifth {
+
+/* 所有页面共用用基础样式 */
+.passport-front, .passport-back, .passport-third, .passport-fourth, .passport-fifth, .passport-sixth, .passport-seventh, .passport-eighth, .passport-ninth, .passport-tenth {
     width: 420px;
     height: 600px;
     border-radius: 20px;
     position: absolute;
-    top: 0; left: 0;
+    top: 0;
+    left: 0;
     transform-origin: left center;
     transition: transform 1.5s ease;
     box-shadow: 0 0 20px rgba(0,0,0,0.15);
     user-select: none;
     transform-style: preserve-3d;
     display: none;
+    overflow: hidden;
+    box-sizing: border-box;
 }
+
+/* 封面样式 */
 .passport-front {
     display: block;
     background: #4B001F;
@@ -47,12 +61,13 @@ body {
     box-shadow: 0 0 30px rgba(0,0,0,0.3);
     backface-visibility: visible;
     z-index: 5;
-    position: relative;
 }
+
 .passport-front .emblem { font-size: 6em; margin-bottom: 30px; }
 .passport-front .title-cn { font-size: 2.5em; font-weight: bold; margin-bottom: 10px; }
 .passport-front .title-en { font-size: 1.8em; font-weight: bold; margin-bottom: 20px; }
 .passport-front .subtitle-cn, .passport-front .subtitle-en { font-weight: bold; }
+
 .passport-front .back-content {
     position: absolute;
     width: 100%;
@@ -66,24 +81,14 @@ body {
     color: rgba(255, 255, 255, 0.7);
     font-weight: bold;
 }
-/* 第二頁背景 */
+
+/* 第二頁样式 */
 .passport-back {
-    width: 420px;
-    height: 600px;
-    border-radius: 20px;
     background: #fff5f8;
-    box-shadow: 0 0 20px rgba(0,0,0,0.15);
-    position: absolute;
-    top: 0;
-    left: 0;
-    overflow: visible;
-    box-sizing: border-box;
-    transform-origin: left center;
-    transition: transform 0.8s ease;
     transform: rotateY(180deg);
     backface-visibility: visible;
-    user-select: none;
 }
+
 .passport-back .watermark {
     position: absolute;
     top: 50%;
@@ -94,11 +99,13 @@ body {
     transform: translate(-50%, -50%);
     pointer-events: none;
 }
+
 .passport-back .content {
     width: 100%;
     height: 100%;
     position: relative;
 }
+
 .welcome-text {
     font-family: "Noto Sans TC", "Arial", sans-serif;
     font-size: 1.6em;
@@ -112,37 +119,24 @@ body {
     transform: translate(-50%, -50%);
     white-space: pre-line;
 }
+
 .welcome-text span {
     display: inline-block;
     opacity: 0;
     transform: translateY(20px);
 }
-.welcome-text.animate span:nth-child(1) {
-    animation-name: riseUpFadeIn;
-    animation-duration: 0.6s;
-    animation-fill-mode: forwards;
-    animation-delay: 0s;
-}
-.welcome-text.animate span:nth-child(3) {
-    animation-name: riseUpFadeIn;
-    animation-duration: 0.6s;
-    animation-fill-mode: forwards;
-    animation-delay: 0.3s;
-}
-.welcome-text.animate span:nth-child(5) {
-    animation-name: riseUpFadeIn;
-    animation-duration: 0.6s;
-    animation-fill-mode: forwards;
-    animation-delay: 0.6s;
-}
+
+.welcome-text.animate span:nth-child(1) { animation: riseUpFadeIn 0.6s forwards 0s; }
+.welcome-text.animate span:nth-child(3) { animation: riseUpFadeIn 0.6s forwards 0.3s; }
+.welcome-text.animate span:nth-child(5) { animation: riseUpFadeIn 0.6s forwards 0.6s; }
+
 @keyframes riseUpFadeIn {
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
+    to { opacity: 1; transform: translateY(0); }
 }
+
+/* 第三頁样式 */
 .passport-third {
-    width: 100%; height: 100%;
+    background: #fff5f8;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -151,112 +145,292 @@ body {
     text-align: center;
 }
 
-/* 圖片框置中 */
-.photo-frame {
-    width: 150px;
-    height: 200px;
-    margin: 20px auto;
-    border: 5px solid #4682b4;
-    border-radius: 10px;
-    overflow: hidden;
-    box-shadow: 0 0 8px rgba(0,0,0,0.2);
-    }
-.photo-frame img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    }
-.quote {
-    font-family: 'Georgia', serif;
-    font-style: italic;
-    font-size: 16px;
-    color: #333;
-    margin-top: 10px;
-    padding: 0 20px;
-    }
-
-.quote::before, .quote::after {
-    content: '"';
-    font-size: 20px;
-    color: #4682b4;
-    }
-
-
+/* 第四頁样式 */
 .passport-fourth {
-    width: 100%;
-    height: 100%;
-    padding: 40px 20px;
-    box-sizing: border-box;
     background: #fff5f8;
+    padding: 30px 30px;
     display: flex;
     flex-direction: column;
-    align-items: center;
-    overflow: hidden;
     font-family: "Noto Sans TC", sans-serif;
 }
 
-.agenda-title {
-    font-size: 1.6em;
-    font-weight: bold;
-    color: #4B001F;
-    margin-bottom: 20px;
-    text-align: center;
-}
-
-.table-wrapper {
-    width: 100%;
-    overflow-x: auto;
-    max-height: 400px;
-    overflow-y: auto;
-}
-
-.agenda-table {
-    width: 100%;
-    border-collapse: collapse;
-    font-size: 0.75em;  /* 控制整體文字大小 */
-    table-layout: fixed;
-    background-color: #fff;
-    box-shadow: 0 0 10px rgba(0,0,0,0.05);
-}
-
-.agenda-table th,
-.agenda-table td {
-    border: 1px solid #ccc;
-    padding: 10px;
-    text-align: center;
-    word-wrap: break-word;
-}
-
-.agenda-table th {
-    background-color: #f1f1f1;
-    color: #4B001F;
-    font-weight: bold;
-}
-
+/* 第五頁样式 */
 .passport-fifth {
-    width: 100%; height: 100%;
+    background: #fff5f8;
+    padding: 30px 30px;
     display: flex;
-    justify-content: center;
-    align-items: center;
-    font-size: 1.6em;
-    font-weight: bold;
-    text-align: center;
-
+    flex-direction: column;
+    font-family: "Noto Sans TC", sans-serif;
+    position: relative;
 }
 
-.section-title {
-    font-size: 1.6em;
+/* 第六頁样式（风景介绍） */
+.passport-sixth {
+    background: #fff5f8;
+    padding: 30px 30px;
+    display: flex;
+    flex-direction: column;
+    font-family: "Noto Sans TC", sans-serif;
+}
+
+/* 第七頁样式（社交晚会） */
+.passport-seventh {
+    background: #fff5f8;
+    padding: 30px 30px;
+    display: flex;
+    flex-direction: column;
+    font-family: "Noto Sans TC", sans-serif;
+}
+
+/* 第七页图片容器 */
+.photos-container {
+    display: flex;
+    gap: 15px;
+    margin: 20px 0;
+}
+
+/* 第八页和第九页样式 */
+.passport-eighth {
+    background: #fff5f8;
+    padding: 15px 10px;
+    display: flex;
+    flex-direction: column;
+    font-family: "Noto Sans TC", sans-serif;
+    text-align: center;
+}
+
+
+.guest-list {
+    margin-top: 5px;
+    line-height: 1.5;
+    font-size: 0.85em;
+    flex-grow: 1;
+    padding: 0 15px;
+}
+
+.guest-item {
+    margin-bottom: 8px;
+    padding-bottom: 6px;
+    border-bottom: 1px solid #eee;
+}
+
+.guest-item:last-child {
+    border-bottom: none;
+    margin-bottom: 0;
+    padding-bottom: 0;
+}
+
+.guest-name {
     font-weight: bold;
     color: #4B001F;
-    margin-top: 40px;
-    margin-bottom: 20px;
-    text-align: center;
-    font-family: "Noto Serif TC", "Georgia", serif;
+    font-size: 1.02em;
+    display: block;
+    margin-bottom: 2px;
 }
 
+.guest-title {
+    display: block;
+    font-size: 0.8em;
+    margin-bottom: 1px;
+}
+
+/* 第九页内容样式调整 */
+.passport-ninth .building-info {
+    font-size: 1em;
+    color: #333;
+    line-height: 1.8;
+    text-align: left;
+    margin-bottom: 16px;
+    z-index: 1;
+    padding: 0 15px;
+}
+
+
+.passport-ninth {
+    background: #fff5f8;
+    padding: 15px 10px;
+    display: flex;
+    flex-direction: column;
+    font-family: "Noto Sans TC", sans-serif;
+    text-align: left;
+    padding: 20px 25px;
+    overflow-y: auto; /* 確保啟用垂直滾動 */
+    max-height: 600px; /* 減去 padding 後的可用高度 */
+    box-sizing: border-box; /* 確保 padding 包含在高度內 */
+}
+
+.passport-ninth::-webkit-scrollbar {
+    width: 8px;
+}
+
+.passport-ninth::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+.passport-ninth::-webkit-scrollbar-thumb {
+    background-color: rgba(75, 0, 31, 0.3);
+    border-radius: 4px;
+}
+
+.passport-ninth .agenda-title {
+    text-align: center;
+}
+
+
+/* 第十頁*/
+.passport-tenth {
+  background: #fff5f8;
+  display: block;
+  font-family: "Noto Sans TC", sans-serif;
+  text-align: left;
+  overflow-y: auto;
+  height: 600px;
+  box-sizing: border-box;
+  padding: 20px 25px;
+}
+
+.passport-tenth .agenda-title {
+  text-align: center;
+  font-size: 20px;
+  font-weight: bold;
+  margin-bottom: 16px;
+}
+
+.passport-tenth .tenth-content p {
+  margin-bottom: 16px;
+  line-height: 1.8;
+  font-size: 14px;
+}
+
+/* 第十一頁*/
+.passport-eleventh {
+  background: #fff5f8;
+  display: block;
+  font-family: "Noto Sans TC", sans-serif;
+  text-align: left;
+  overflow-y: auto;
+  height: 600px;
+  box-sizing: border-box;
+  padding: 20px 25px;
+
+  /* 加上下面這些補齊 3D 翻頁效果 */
+  position: absolute;
+  top: 0;
+  left: 0;
+  transform-origin: left center;
+  transition: transform 1.5s ease;
+  box-shadow: 0 0 20px rgba(0,0,0,0.15);
+  user-select: none;
+  transform-style: preserve-3d;
+  display: none; /* 最初不要顯示 */
+}
+
+.passport-eleventh .agenda-title {
+  text-align: center;
+  font-size: 20px;
+  font-weight: bold;
+  margin-bottom: 16px;
+}
+
+.passport-eleventh .eleventh-content p {
+  margin-bottom: 16px;
+  line-height: 1.8;
+  font-size: 14px;
+}
+
+
+/* 第十二頁*/
+
+.passport-twelfth {
+  background: #fff5f8;
+  display: block;
+  font-family: "Noto Sans TC", sans-serif;
+  text-align: left;
+  overflow-y: auto;
+  height: 600px;
+  box-sizing: border-box;
+  padding: 20px 25px;
+
+  /* 翻頁必要屬性 */
+  position: absolute;
+  top: 0;
+  left: 0;
+  transform-origin: left center;
+  transition: transform 1.5s ease;
+  box-shadow: 0 0 20px rgba(0,0,0,0.15);
+  user-select: none;
+  transform-style: preserve-3d;
+  display: none;
+}
+
+.passport-twelfth .agenda-title {
+  text-align: center;
+  font-size: 20px;
+  font-weight: bold;
+  margin-bottom: 16px;
+}
+
+.passport-twelfth .eleventh-content p {
+  margin-bottom: 16px;
+  line-height: 1.8;
+  font-size: 14px;
+}
+
+/* 第十三頁*/
+.passport-thirteenth {
+  background: #fff5f8;
+  font-family: "Noto Sans TC", sans-serif;
+  text-align: center;
+  overflow-y: auto;
+  height: 600px;
+  box-sizing: border-box;
+  padding: 20px 25px;
+
+  /* 翻頁必要 */
+  position: absolute;
+  top: 0;
+  left: 0;
+  transform-origin: left center;
+  transition: transform 1.5s ease;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
+  user-select: none;
+  transform-style: preserve-3d;
+  display: none;
+}
+
+.profile-image-wrapper {
+  width: 150px;
+  height: 150px;
+  margin: 0 auto 10px;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 0 10px rgba(0,0,0,0.2);
+}
+
+.profile-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.profile-name {
+  font-size: 18px;
+  font-weight: bold;
+  margin-bottom: 15px;
+}
+
+.profile-section {
+  text-align: left;
+  font-size: 14px;
+  line-height: 1.6;
+  margin-top: 10px;
+}
+
+
+/* 通用组件样式 */
 .photo-frame {
-    width: 320px;        /* 更寬 */
-    height: 200px;       /* 比例適中 */
+    width: 320px;
+    height: 200px;
     margin: 20px auto;
     border: 6px solid #4682b4;
     border-radius: 12px;
@@ -270,45 +444,162 @@ body {
     object-fit: cover;
 }
 
-.passport-back { background: #fff5f8; }
-.passport-third { background: #fff5f8; }
-.passport-fourth { background: #fff5f8; font-size: 2em; color: #00796B; font-weight: bold; }
-.passport-fifth { background: #fff5f8; font-size: 2em; color: #00796B; font-weight: bold; }
-
-.passport-container.page-1 .passport-front {
-    display: flex;
-    transform: rotateY(0deg);
+/* 第六页专用照片网格 */
+.photo-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 15px;
+    margin-top: 20px;
 }
+
+.small-photo-frame {
+    width: 100%;
+    height: 140px;
+    border: 4px solid #4682b4;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 0 8px rgba(0,0,0,0.2);
+}
+
+.small-photo-frame img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.quote {
+    font-family: 'Georgia', serif;
+    font-style: italic;
+    font-size: 16px;
+    color: #333;
+    margin-top: 10px;
+    padding: 0 20px;
+}
+
+.quote::before, .quote::after {
+    content: '"';
+    font-size: 20px;
+    color: #4682b4;
+}
+
+.agenda-title {
+    font-size: 1.4em;
+    font-weight: bold;
+    color: #4B001F;
+    margin-bottom: 10px;
+    text-align: center;
+    margin-top: 5px;
+}
+
+.info-content {
+    font-size: 1.1em;
+    color: #333;
+    line-height: 2;
+}
+
+.info-content p { margin: 0 0 20px 0; }
+.info-content strong { color: #4B001F; font-size: 1.05em; }
+.info-content ul { margin: 0 0 20px 25px; padding: 0; }
+.info-content li { margin-bottom: 12px; }
+
+.building-info {
+    font-size: 1em;
+    color: #333;
+    line-height: 1.8;
+    margin-bottom: 20px;
+    z-index: 1;
+}
+
+.building-watermark {
+    position: absolute;
+    top: 40%;
+    left: 50%;
+    width: 250px;
+    height: 250px;
+    opacity: 0.1;
+    transform: translate(-50%, -60%);
+    pointer-events: none;
+    z-index: 0;
+}
+
+.section-title {
+    font-size: 1.6em;
+    font-weight: bold;
+    color: #4B001F;
+    margin-top: 40px;
+    margin-bottom: 20px;
+    text-align: center;
+    font-family: "Noto Serif TC", "Georgia", serif;
+}
+
+
+
+
+
+/* 页面显示控制 */
+.passport-container.page-1 .passport-front { display: flex; transform: rotateY(0deg); }
 .passport-container.page-2 .passport-front,
-.passport-container.page-2 .passport-back {
-    display: block;
-}
+.passport-container.page-2 .passport-back { display: block; }
 .passport-container.page-3 .passport-back,
-.passport-container.page-3 .passport-third {
-    display: block;
-}
+.passport-container.page-3 .passport-third { display: block; }
 .passport-container.page-4 .passport-third,
-.passport-container.page-4 .passport-fourth {
-    display: block;
-}
+.passport-container.page-4 .passport-fourth { display: block; }
 .passport-container.page-5 .passport-fourth,
-.passport-container.page-5 .passport-fifth {
-    display: block;
-}
+.passport-container.page-5 .passport-fifth { display: block; }
+.passport-container.page-6 .passport-fifth,
+.passport-container.page-6 .passport-sixth { display: block; }
+.passport-container.page-7 .passport-sixth,
+.passport-container.page-7 .passport-seventh { display: block; }
+.passport-container.page-8 .passport-seventh,
+.passport-container.page-8 .passport-eighth { display: block; }
+.passport-container.page-9 .passport-eighth,
+.passport-container.page-9 .passport-ninth { display: block; }
+.passport-container.page-10 .passport-ninth,
+.passport-container.page-10 .passport-tenth {display: block;}
+.passport-container.page-11 .passport-tenth,
+.passport-container.page-11 .passport-eleventh { display: block; }
+.passport-container.page-12 .passport-eleventh,
+.passport-container.page-12 .passport-twelfth { display: block; }
+.passport-container.page-13 .passport-twelfth,
+.passport-container.page-13 .passport-thirteenth { display: block; }
 
+
+/* 翻页效果控制 */
 .passport-container.page-2 .passport-front { transform: rotateY(-180deg); z-index: 1; }
 .passport-container.page-2 .passport-back { transform: rotateY(0deg); z-index: 5; }
 .passport-container.page-3 .passport-back { transform: rotateY(-180deg); z-index: 1; }
 .passport-container.page-3 .passport-third { transform: rotateY(0deg); z-index: 5; }
 .passport-container.page-4 .passport-third { transform: rotateY(-180deg); z-index: 1; }
 .passport-container.page-4 .passport-fourth { transform: rotateY(0deg); z-index: 5; }
-.passport-container.page-5 .passport-fourth { transform: rotateY(-180deg); z-index: 1; display: block; }
-.passport-container.page-5 .passport-fifth { transform: rotateY(0deg); z-index: 5; display: block; }
+.passport-container.page-5 .passport-fourth { transform: rotateY(-180deg); z-index: 1; }
+.passport-container.page-5 .passport-fifth { transform: rotateY(0deg); z-index: 5; }
+.passport-container.page-6 .passport-fifth { transform: rotateY(-180deg); z-index: 1; }
+.passport-container.page-6 .passport-sixth { transform: rotateY(0deg); z-index: 5; }
+.passport-container.page-7 .passport-sixth { transform: rotateY(-180deg); z-index: 1; }
+.passport-container.page-7 .passport-seventh { transform: rotateY(0deg); z-index: 5; }
+.passport-container.page-8 .passport-seventh { transform: rotateY(-180deg); z-index: 1; }
+.passport-container.page-8 .passport-eighth { transform: rotateY(0deg); z-index: 5; }
+.passport-container.page-9 .passport-eighth { transform: rotateY(-180deg); z-index: 1; }
+.passport-container.page-9 .passport-ninth { transform: rotateY(0deg); z-index: 5; }
+.passport-container.page-10 .passport-ninth { transform: rotateY(-180deg); z-index: 1; }
+.passport-container.page-10 .passport-tenth { transform: rotateY(0deg); z-index: 5; }
+.passport-container.page-11 .passport-tenth {transform: rotateY(-180deg); z-index: 1;}
+.passport-container.page-11 .passport-eleventh {transform: rotateY(0deg); z-index: 5;}
+.passport-container.page-12 .passport-eleventh { transform: rotateY(-180deg); z-index: 1; }
+.passport-container.page-12 .passport-twelfth { transform: rotateY(0deg); z-index: 5; }
+.passport-container.page-13 .passport-twelfth { transform: rotateY(-180deg); z-index: 1; }
+.passport-container.page-13 .passport-thirteenth { transform: rotateY(0deg); z-index: 5; }
+
 
 </style>
+
 </head>
+
 <body>
+
 <div class="passport-container page-1" id="passportContainer">
+
+    <!-- 1. 封面 -->
     <div class="passport-front">
         <div class="emblem">UN</div>
         <div class="title-cn">模擬聯合國</div>
@@ -317,8 +608,9 @@ body {
         <div class="subtitle-en">PASSPORT</div>
         <div class="back-content">封面背面</div>
     </div>
-      <!-- 第二頁 -->
-    <div class="passport-back" aria-hidden="true">
+
+    <!-- 2. 欢迎页 -->
+    <div class="passport-back">
         <img class="watermark" src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/00/United_Nations_Emblem_olive_branch.svg/1024px-United_Nations_Emblem_olive_branch.svg.png" alt="聯合國水印" />
         <div class="content">
             <div class="welcome-text" id="welcomeText">
@@ -328,7 +620,8 @@ body {
             </div>
         </div>
     </div>
-    <!-- 第三頁 -->
+
+    <!-- 3. 代表信息 -->
     <div class="passport-third">
         <h2>代表信息</h2>
         <div class="photo-frame">
@@ -337,79 +630,303 @@ body {
         <p class="quote">模擬聯合國參會代表</p>
     </div>
 
-    <!-- 第四頁 -->
+    <!-- 4. 大会基本信息 -->
     <div class="passport-fourth">
-         <div class="agenda-title">大會議程</div>
-          <table class="agenda-table">
-            <thead>
-                <tr>
-                    <th>時間</th>
-                    <th>活動</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td>09:00 - 09:30</td>
-                    <td>報到 / 入場</td>
-                </tr>
-                <tr>
-                    <td>09:30 - 10:00</td>
-                    <td>開幕式</td>
-                </tr>
-                <tr>
-                    <td>10:00 - 12:00</td>
-                    <td>議題討論（一）</td>
-                </tr>
-                <tr>
-                    <td>12:00 - 13:30</td>
-                    <td>午餐 / 休息</td>
-                </tr>
-                <tr>
-                    <td>13:30 - 15:30</td>
-                    <td>議題討論（二）</td>
-                </tr>
-                <tr>
-                    <td>15:30 - 16:00</td>
-                    <td>閉幕式 / 合照</td>
-                </tr>
-            </tbody>
-        </table>
+        <div class="agenda-title">大会基本信息</div>
+        <div class="info-content">
+            <p><strong>时间：</strong>2025年8月2日-8月4日</p>
+            <p><strong>地点：</strong>横琴·光大横琴大厦</p>
+            <p><strong>议题设置：</strong></p>
+            <ul>
+                <li>全球碳达峰碳中和峰会</li>
+                <li>东盟10+3峰会</li>
+                <li>英文委员会</li>
+            </ul>
+            <p><strong>会议语言：</strong>中文简体、英文</p>
+        </div>
     </div>
 
+    <!-- 5. 光大横琴大厦信息 -->
     <div class="passport-fifth">
-        <div class="section-title">開幕式</div>
+        <div class="agenda-title">基本信息</div>
+        <div class="building-info">
+            <p>光大横琴澳金财富大厦雄踞珠海横琴新区，坐拥金融岛核心区位，与澳门隔江相望。毗邻十字门中央商务轴，坐拥横琴口岸跨境枢纽，立体交通网络通达粤港澳——2大国际空港、4大航运码头及高铁动脉环绕周边，至澳门仅5分钟车程，距横琴口岸仅1.5公里。光大横琴大厦高17层，由两栋主体建筑组成，为高端金融、商务办公之大型综合体。</p>
+        </div>
         <div class="photo-frame">
-            <img src="1.jpg" alt="開幕式照片">
-    <!-- 你可以在這裡加入更多內容，例如圖片、說明、列表等 -->
+            <img src="2.jpg" alt="光大横琴大厦照片">
+        </div>
+    </div>
+
+    <!-- 6. 风景介绍 -->
+    <div class="passport-sixth">
+        <div class="agenda-title">風景介紹</div>
+        <div class="building-info">
+            <p>雅致都市地标傲然矗立于天际线之上，与澳门隔岸相望，东望凼仔路凼盛世繁华，北眺澳门半岛标志性文化地标。玻璃幕墙映耀苍穹270°环幕视界尽揽都市风华。移步即享繁华市景，会议室内坐观云涛。</p>
+        </div>
+        <div class="photo-grid">
+            <div class="small-photo-frame">
+                <img src="4.jpg" alt="風景照片1">
+            </div>
+            <div class="small-photo-frame">
+                <img src="5.jpg" alt="風景照片2">
+            </div>
+            <div class="small-photo-frame">
+                <img src="6.jpg" alt="風景照片3">
+            </div>
+            <div class="small-photo-frame">
+                <img src="7.jpg" alt="風景照片4">
+            </div>
+        </div>
+    </div>
+
+    <!-- 7. 社交晚会 -->
+    <div class="passport-seventh">
+        <div class="agenda-title">社交晚会</div>
+        <div class="building-info">
+            <p>位于顶层的云顶花园已为您备好月光晚会，云顶之下目光所及皆为琴澳顶奢夜景。琴澳多雨，我们准备了三个不同楼层的室内场地作为备选，从容应对多雨天气，全景落地窗化身流动画框，多重保障让您从容徜徉于璀璨夜色。</p>
+        </div>
+        <div class="photos-container">
+            <div class="small-photo-frame" style="flex: 1;">
+                <img src="8.jpg" alt="晚会照片1">
+            </div>
+            <div class="small-photo-frame" style="flex: 1;">
+                <img src="9.jpg" alt="晚会照片2">
+            </div>
+        </div>
+        <div class="building-info" style="margin-top: 15px;">
+            <p>会议期间尊享全馆公共空间，作为精品会议光大横琴将为我们仅百人的会议规模带来极大的空间富余，咖啡吧、小隔间、会谈室、观景台、露天平台等，更提供免费的无人机航拍服务，更多精彩内容欢迎报名咨询。</p>
+        </div>
+    </div>
+
+    <!-- 8. 大会出席嘉宾 -->
+    <div class="passport-eighth">
+        <div class="agenda-title">大會出席嘉賓</div>
+        <div class="guest-list">
+            <div class="guest-item">
+                <span class="guest-name">张森华</span>
+                <span class="guest-title">福建省政协委员</span>
+                <span class="guest-title">中华青年进步协会会长</span>
+            </div>
+            <div class="guest-item">
+                <span class="guest-name">许治炜</span>
+                <span class="guest-title">中华青年进步协会执行会长</span>
+                <span class="guest-title">陕西省青年联合会委员</span>
+                <span class="guest-title">广州市青年联合会委员</span>
+            </div>
+            <div class="guest-item">
+                <span class="guest-name">施俊忠</span>
+                <span class="guest-title">中华青年进步协会副会长</span>
+                <span class="guest-title">中山大学澳门校友会理事长</span>
+            </div>
+            <div class="guest-item">
+                <span class="guest-name">陈锐峰</span>
+                <span class="guest-title">大湾区竞争与产业发展研究会会长</span>
+                <span class="guest-title">中华青年进步协会副理事长</span>
+            </div>
+            <div class="guest-item">
+                <span class="guest-name">姚文健</span>
+                <span class="guest-title">澳门文化旅游报副社长</span>
+            </div>
+            <div class="guest-item">
+                <span class="guest-name">高煜人</span>
+                <span class="guest-title">澳门模拟联合国交流协会创会会长</span>
+                <span class="guest-title">中华青年进步协会副理事长</span>
+            </div>
+            <div class="guest-item">
+                <span class="guest-name">徐立文</span>
+                <span class="guest-title">澳门模拟联合国交流协会监事长</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- 9. 模联朋友圈 -->
+    <div class="passport-ninth">
+        <div class="agenda-title">"链路未来" 模联朋友圈</div>
+        <div class="building-info">
+            <p>本次莲峰模拟联合国大会特别设立了一个专属的"模联朋友圈"自由交流空间——"链路未来"</p>
+            <p>我们诚挚邀请了长期鼎力支持协会发展的赞助单位、支持单位、战略合作伙伴，以及多年来给予我们无私指导与帮助的前辈、老友。他们不仅仅是旁观者，更是模联活动的深度参与者。</p>
+            <p>参与单位包括但不限于中华青年进步协会、光大横琴、澳门文化旅游报、惠州仲愷港澳青年創業基地、澳门城市大学ITTC、石柏文旅、澳门演说家协会、mauac、粤港澳大灣區博士協會、濠盛國際有限公司等，涵盖教育支持、会务扶持、场地供给、媒体宣传、文旅研学、模联软件、网络运营等领域。</p>
+            <p>我们同样聚集了各兄弟模联组织的负责人及骨干成员、淡出模联的在职学者等，这是模联人相互学习、分享经验、探讨合作的最佳时机。</p>
+            <p>这些参与交流的单位和个人，经过与莲峰模联协会的长期、深度合作，对模拟联合国活动有着深刻的理解。他们不仅熟悉模联的运作模式，更真切了解模联社团在发展过程中面临的需求与挑战。他们来到这里，带着开放的心态和切实的支持意愿，期待与年轻的学生社团领导者们面对面交流，探讨如何更好地助力社团成长！</p>
+            <p>更多详情请关注公众号：澳模交黑板报</p>
+        </div>
+    </div>
+
+    <!-- 第十頁 -->
+    <div class="passport-tenth">
+        <div class="agenda-title">碳达峰碳中和会场介绍</div>
+        <div class="tenth-content">
+            <p><strong>委员会：</strong>第二届至球碳达峰碳中和峰会</p>
+            <p><strong>会场议题：</strong>碳达峰碳中和的全球合作</p>
+            <p><strong>工作语言：</strong>中文简体、中文繁体（普通话）</p>
+            <p><strong>会议规则：</strong>经修改的罗伯特议事规则</p>
+            <p><strong>主席团：</strong>主席团指导1位、主席团成员3位</p>
+            <p><strong>席位设置：</strong>混合代表制，20席</p>
+            <p><strong>会场介绍：</strong></p>
+            <p>
+              随着全球气候变化的影响不断加剧，各国在能源转型、低碳发展和环境保护方面面临严峻挑战。
+              自去年8月在中国澳门成功举办以来，全球碳达峰碳中和峰会已成为两岸三地青年探讨碳减排策略和推动绿色发展的重要平台。
+              首届峰会通过的《澳门宣言》提出了加强清洁能源技术交流、推动能源转型以及构建全球技术合作与援助平台等举措，
+              彰显了各方在应对气候变化问题上的共识与决心。
+            </p>
+            <p>
+              本届峰会不仅延续去年的成功经验，还将在会议机制上进行多项创新，以确保议程更加高效、讨论更加聚焦。
+              会议将围绕全球碳减排的现状、低碳技术的应用、碳市场建设与监管以及国际责任与合作等核心议题展开深入讨论。
+              与会代表将结合所代表国家的实践经验，探讨能源结构调整、低碳政策落实及技术挑战，并共同寻求实现国际合作与互利共赢的可行路径。
+            </p>
+            <p>
+              在这里，您不仅能与来自不同地区的青年代表深入交流，共同探讨低碳转型的挑战与机遇，
+              还能借鉴至球绿色发展的成功模式，激发创新思维，为实现碳达峰与碳中和贡献智慧。
+              通过充分的交流与协商，我们将携手推动绿色低碳政策落地，促进区域合作，共同创造一个低碳、可持续的美好未来。
+            </p>
+        </div>
+    </div>
+
+    <!-- 第十一頁 -->
+    <div class="passport-eleventh">
+        <div class="agenda-title">东盟10+3峰会 (中文委员会)</div>
+        <div class="eleventh-content">
+            <p><strong>会场议题：</strong>第27届东盟10+3峰会领导人会议</p>
+            <p><strong>席位设置：</strong>27-31席</p>
+            <p><strong>国家设置：</strong>文莱、柬埔寨、印度尼西亚、老挝、马来西亚、缅甸、菲律宾、新加坡、泰国、越南、中国、日本、韩国、东盟秘书处</p>
+            <p><strong>观察员设置：</strong>联合国开发计划署(UNDP)、亚洲开发银行(ADB)</p>
+            <p><strong>主席团成员：</strong>DH 严梓毓（外交学院）、DM 胡若珈（河北大学）、DM 招募中</p>
+            <p><strong>会议简介：</strong></p>
+            <p>“多边主义不是一种选择，而是一种必然” —— 联合国秘书长 古特雷斯。</p>
+            <p>
+                东亚与东南亚，这片历史悠久、故事丰富的土地，孕育着和平稳定与经济飞速发展的潜力，也面临着政局动荡、贫穷及民族冲突的挑战。
+                热带季风年复一年地席卷山河，如同东盟与中日韩峰会承载的使命，在时代浪潮中奔涌不息。
+            </p>
+            <p>
+                在东盟国家持续遭受全球供应链中断、能源价格波动、粮食危机等冲击的情况下，过去峰会中，中日韩三国承诺通过《区域全面经济伙伴关系协定》(RCEP)
+                深化贸易、加强互联互通。但实际落地仍面临非关税壁垒。
+            </p>
+            <p>
+                本次峰会是《RCEP》全面生效后的重要实践节点，也是后疫情时代协调区域经济复苏与战略安全的关键平台。
+                10+3合作机制自1997年成立以来，在金融安全、公共卫生、灾害管理等领域取得显著成果，建立了60多个对话与合作平台，形成了完善的合作体系。
+            </p>
+            <p>
+                本次会议设置为领导人会议层级，代表将以国家领导人身份出席，通过圆桌会议、磋商辩论等形式对10+3合作做出战略指导。
+                希望各位代表汇聚智慧，凝聚共识，为区域合作提供新思路，推动区域与全球经贸合作的可持续发展。
+            </p>
+        </div>   
+    </div>
+
+      <!-- 第十二頁 -->
+    <div class="passport-twelfth">
+        <div class="agenda-title">English Committee </div>
+        <div class="twelfth-content">
+            <p><strong>Conference topics:</strong> Human Rights in the Digital Context: Ethical Use of AI and A Global Agenda on Countering Disinformation</p>
+            <p><strong>Seat setting:</strong> Single Delegate (up to 50 places)</p>
+            <p><strong>Members:</strong> 
+              DH: Wang Shengyue (Masaryk University, Czech Republic)<br>
+              DM: Zhang Le (Xi'an International Studies University)<br>
+              DM: Ma Yujia (Sun Yat-sen University)
+            </p>
+            <p><strong>Introduction to the Committee:</strong></p>
+            <p>
+              Since its inception, The UN Human Rights Council (UNHRC) has been a pivotal global forum to advance the collective commitment to and efforts in human rights promotion.
+              The role it plays is even more salient as our societies grow more digitally connected. 
+              A series of recent international events, such as the re-election of US President Donald Trump and the AI-aided massive spread of disinformation on major social media platforms (most notably X, or Twitter),
+              sends an alarming signal to the human rights landscape.
+            </p>
+            <p>
+              It is in the best interest of the international community to come together once again to urgently address the ethical use of AI and charting a much needed global agenda to curb the spread of disinformation.
+            </p>
+        </div>   
+    </div>
+
+    
+    <!-- 第十三頁 -->
+    <div class="passport-thirteenth">
+      <div class="profile-page">
+        <div class="profile-image-wrapper">
+          <img src="a.jpg" alt="朱熙萌" class="profile-image">
+        </div>
+        <div class="profile-name">广东培正学院 朱熙萌</div>
+        <div class="profile-section">
+          <p><strong>寄语:</strong> 踵继前志，惟实励新。</p>
+          <p><strong>履历:</strong><br>
+            2020 世界青少年模拟联合国大会 经社理事会 代表<br>
+            2021 世界青少年模拟联合国大会广东会议 教科文代表<br>
+            2022 第八届沈阳市模拟联合国大会 安理会 最佳代表<br>
+            2022 第三届同济:上理模拟联合国大会 安理会 荣誉提名<br>
+            2022 第十二届山西财经大学模拟联合国大会 环境署 杰出代表<br>
+            2023 深圳大学附属中学模拟联合国大会 安理会 主席团指导<br>
+            2024 第二届三亚学院模拟联合国大会 安理会 主席团指导<br>
+            2024 第十四届华南理工大学模拟联合国大会 经社理事会 最佳立场<br>
+            2024 第十六届中山大学模拟联合国大会 主新闻中心 主席团成员<br>
+            2024 世界青少年模拟联合国大会四川会议 开发署 主席团成员<br>
+            2024 莲峰模拟联合国大会 全球碳达峰碳中和峰会 主席团指导<br>
+            2025 第十三届木心模拟联合国大会 安理会 主席团指导
+          </p>
+        </div>
+      </div>
     </div>
 
 </div>
+
 <script>
-const passport = document.getElementById('passportContainer');
-const welcomeText = document.getElementById('welcomeText');
-let currentPage = 1;
+document.addEventListener('DOMContentLoaded', function () {
+    const passport = document.getElementById('passportContainer');
+    const welcomeText = document.getElementById('welcomeText');
+    let currentPage = 1;
+    const totalPages = 13;
 
-function triggerAnimation() {
-    welcomeText.classList.remove('animate');
-    void welcomeText.offsetWidth;
-    welcomeText.classList.add('animate');
-}
-
-function toPage(page) {
-    passport.className = 'passport-container page-' + page;
-    currentPage = page;
-    if (page === 2) {
-        triggerAnimation();
+    function triggerAnimation() {
+        if (welcomeText) {
+            welcomeText.classList.remove('animate');
+            void welcomeText.offsetWidth;
+            welcomeText.classList.add('animate');
+        }
     }
-}
 
-passport.addEventListener('click', () => {
-    if (currentPage === 1) toPage(2);
-    else if (currentPage === 2) toPage(3);
-    else if (currentPage === 3) toPage(4);
-    else if (currentPage === 4) toPage(5);
-    else if (currentPage === 5) toPage(1);
+    function toPage(page) {
+        if (page < 1) page = totalPages;
+        if (page > totalPages) page = 1;
+        passport.className = `passport-container page-${page}`;
+        currentPage = page;
+        if (page === 2) triggerAnimation();
+    }
+
+    passport.addEventListener('click', function (event) {
+        const rect = passport.getBoundingClientRect();
+        const clickX = event.clientX - rect.left;
+        const isLeftSide = clickX < rect.width / 2;
+
+        if (isLeftSide) {
+            toPage(currentPage - 1);
+        } else {
+            toPage(currentPage + 1);
+        }
+    });
+
+    // ✅ 可選：加手機滑動支援
+    let touchStartX = 0;
+    let touchEndX = 0;
+
+    passport.addEventListener('touchstart', (e) => {
+        touchStartX = e.changedTouches[0].screenX;
+    });
+
+    passport.addEventListener('touchend', (e) => {
+        touchEndX = e.changedTouches[0].screenX;
+        handleSwipeGesture();
+    });
+
+    function handleSwipeGesture() {
+        const threshold = 50;
+        const distance = touchEndX - touchStartX;
+        if (distance > threshold) {
+            toPage(currentPage - 1);
+        } else if (distance < -threshold) {
+            toPage(currentPage + 1);
+        }
+    }
 });
 </script>
+
+
 </body>
+
 </html>
