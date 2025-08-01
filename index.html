@@ -136,14 +136,41 @@ body {
 
 /* 第三頁样式 */
 .passport-third {
-    background: #fff5f8;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    font-size: 1.6em;
-    font-weight: bold;
-    text-align: center;
+  height: 600px; /* 或 100% 如果父容器固定高度 */
+  background: #fff5f8;
+  display: flex;
+  justify-content: center;
+  align-items: center; /* 垂直居中 */
+  text-align: center;
 }
+
+.photo-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.photo-frame {
+  width: 180px;
+  height: 180px;
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 0 12px rgba(0, 0, 0, 0.2);
+  margin-bottom: 20px;
+}
+
+.photo-frame img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.quote {
+  font-size: 1.2em;
+  color: #333;
+  font-style: italic;
+}
+
 
 /* 第四頁样式 */
 .passport-fourth {
@@ -621,6 +648,7 @@ body {
   width: 100%;
   height: 100%;
   object-fit: cover;
+  object-position: top center;
 }
 
 /* 17 圖片下方姓名文字 */
@@ -675,6 +703,7 @@ body {
   width: 100%;
   height: 100%;
   object-fit: cover;
+  object-position: top center;
 }
 
 /* 18 圖片下方姓名文字 */
@@ -728,6 +757,7 @@ body {
   width: 100%;
   height: 100%;
   object-fit: cover;
+  object-position: top center;
 }
 
 /* 19页姓名文字 */
@@ -782,6 +812,7 @@ body {
   width: 100%;
   height: 100%;
   object-fit: cover;
+  object-position: top center;
 }
 
 /* 20页姓名文字 */
@@ -1145,9 +1176,9 @@ body {
     <!-- 1. 封面 -->
     <div class="passport-front">
         <div class="emblem">UN</div>
-        <div class="title-cn">模擬聯合國</div>
+        <div class="title-cn">模拟联合国</div>
         <div class="title-en">UNITED NATIONS</div>
-        <div class="subtitle-cn">護照</div>
+        <div class="subtitle-cn">护照</div>
         <div class="subtitle-en">PASSPORT</div>
         <div class="back-content">封面背面</div>
     </div>
@@ -1157,21 +1188,23 @@ body {
         <img class="watermark" src="3.jpg" alt="聯合國水印" />
         <div class="content">
             <div class="welcome-text" id="welcomeText">
-                <span>歡迎成為</span><br>
-                <span>第屆模擬聯合國</span><br>
-                <span>參會代表</span>
+                <span>欢迎成为</span><br>
+                <span>第二届<br />莲峰模拟联合国</span><br>
+                <span>参会代表</span>
             </div>
         </div>
     </div>
 
     <!-- 3. 代表信息 -->
-    <div class="passport-third">
-        <h2>代表信息</h2>
-        <div class="photo-frame">
-            <img src="1.jpg" alt="Participant Photo">
-        </div>
-        <p class="quote">模擬聯合國參會代表</p>
+      <div class="passport-third">
+        <div class="content-wrapper">
+            <div class="photo-frame">
+                <img src="1.jpg" alt="Participant Photo">
+            </div>
+            <p class="quote">备赛的日夜终将化作底气<br />相信您的努力会在此刻闪光。<br />放松心态，享受舞台！</p>
+      </div>
     </div>
+
 
     <!-- 4. 大会基本信息 -->
     <div class="passport-fourth">
@@ -1202,7 +1235,7 @@ body {
 
     <!-- 6. 风景介绍 -->
     <div class="passport-sixth">
-        <div class="agenda-title">風景介紹</div>
+        <div class="agenda-title">风景介绍</div>
         <div class="building-info">
             <p>雅致都市地标傲然矗立于天际线之上，与澳门隔岸相望，东望凼仔路凼盛世繁华，北眺澳门半岛标志性文化地标。玻璃幕墙映耀苍穹270°环幕视界尽揽都市风华。移步即享繁华市景，会议室内坐观云涛。</p>
         </div>
@@ -1243,7 +1276,7 @@ body {
 
     <!-- 8. 大会出席嘉宾 -->
     <div class="passport-eighth">
-        <div class="agenda-title">大會出席嘉賓</div>
+        <div class="agenda-title">大会出席嘉宾</div>
         <div class="guest-list">
             <div class="guest-item">
                 <span class="guest-name">张森华</span>
@@ -1288,7 +1321,7 @@ body {
         <div class="building-info">
             <p>本次莲峰模拟联合国大会特别设立了一个专属的"模联朋友圈"自由交流空间——"链路未来"</p>
             <p>我们诚挚邀请了长期鼎力支持协会发展的赞助单位、支持单位、战略合作伙伴，以及多年来给予我们无私指导与帮助的前辈、老友。他们不仅仅是旁观者，更是模联活动的深度参与者。</p>
-            <p>参与单位包括但不限于中华青年进步协会、光大横琴、澳门文化旅游报、惠州仲愷港澳青年創業基地、澳门城市大学ITTC、石柏文旅、澳门演说家协会、mauac、粤港澳大灣區博士協會、濠盛國際有限公司等，涵盖教育支持、会务扶持、场地供给、媒体宣传、文旅研学、模联软件、网络运营等领域。</p>
+            <p>参与单位包括但不限于中华青年进步协会、光大横琴、澳门文化旅游报、惠州仲恺港澳青年创业基地、澳门城市大学ITTC、石柏文旅、澳门演说家协会、mauac、粤港澳大湾区博士协会、濠盛国际有限公司等，涵盖教育支持、会务扶持、场地供给、媒体宣传、文旅研学、模联软件、网络运营等领域。</p>
             <p>我们同样聚集了各兄弟模联组织的负责人及骨干成员、淡出模联的在职学者等，这是模联人相互学习、分享经验、探讨合作的最佳时机。</p>
             <p>这些参与交流的单位和个人，经过与莲峰模联协会的长期、深度合作，对模拟联合国活动有着深刻的理解。他们不仅熟悉模联的运作模式，更真切了解模联社团在发展过程中面临的需求与挑战。他们来到这里，带着开放的心态和切实的支持意愿，期待与年轻的学生社团领导者们面对面交流，探讨如何更好地助力社团成长！</p>
             <p>更多详情请关注公众号：澳模交黑板报</p>
@@ -1664,7 +1697,7 @@ body {
 
 <div class="passport-footer-tip">
   
-   數字護照<br>  
+   数字护照<br>  
    策划：粤港澳大湾区博士协会 <br>  
    制作：濠盛国际有限公司  <br> 
    版权所有：澳门模拟联合国交流协会  <br> 
